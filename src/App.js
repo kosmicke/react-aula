@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-// Criando function component 
+// Criando c component 
 class App extends React.Component {
 
   // Criando construtor
@@ -26,42 +25,18 @@ class App extends React.Component {
   // Função para recurepar valor dependendo do estado
   getLabel() {
     if (this.state.clicked) {
-      return "ESTÁ LIGADO CLASS"
+      return "ESTÁ LIGADO"
     } else {
-      return "ESTÁ DESLIGADO CLASS"
+      return "ESTÁ DESLIGADO"
     }
   }
 
   // Função que renderiza o componente
   render() {
-
-    // // Criando elemento 
-    // let elem = React.createElement(
-    //   'button', // Tipo
-    //   { onClick: () => this.changeClicked() }, // Atributos
-    //   this.getLabel() // Conteúdo
-    // )
-
-    // // Retornando elemento
-    // return elem
-
     return (
-      <div className="row">
-        
-        {(this.state.clicked) ? (
-          <div className="col-sm-6">
-            <button onClick={() => this.changeClicked()} className="btn btn-primary">
-              {this.getLabel()}
-            </button>
-          </div>
-        ) : (
-          <div className="col-sm-6">
-            <button onClick={() => this.changeClicked()} className="btn btn-danger">
-              {this.getLabel()}
-            </button>
-          </div>
-        )}
-      </div>
+      <button onClick={() => this.changeClicked()} className="btn btn-primary">
+        {this.getLabel()}
+      </button>
     )
   }
 
