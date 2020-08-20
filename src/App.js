@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/header.component'
+import AlertModal from './components/alert-modal/alert-modal.component'
 
 // Criando c component 
 class App extends React.Component {
@@ -16,10 +17,21 @@ class App extends React.Component {
             clicked: false,
             buttonClass: "botao-desligado"
         }
+
+        // Criando refeência para o header
+        this.myHeader = React.createRef();
+
+        this.myModal = React.createRef();
+    }
+
+    componentDidMount(){
     }
 
     // Função para alterar o estado
     changeClicked() {
+
+        this.myHeader.current.insideHeader()
+        this.myModal.current.toggleVisible()
 
         let clicked = !this.state.clicked
         let buttonClass = {}
@@ -42,12 +54,25 @@ class App extends React.Component {
         }
     }
 
+    onModalConfirm(){
+        console.log("confirmou", this.state)
+    }
+
+    onModalCancel(){
+        console.log("cancelou", this.state)
+    }
+
 
     // Função que renderiza o componente
     render() {
+        
         return (
             <section>
-                <Header></Header>
+                <Header title="Aula 10" onTitleClicked={() => console.log("Clicou no título que eu ví!")} ref={this.myHeader}>
+                    <button className="btn btn-primary">
+                        Sair
+                    </button>
+                </Header>
                 <div className="row">
                     <div className="col-sm-12 d-flex justify-content-center">
                         <button onClick={() => this.changeClicked()} className={this.state.buttonClass}>
@@ -66,6 +91,9 @@ class App extends React.Component {
                         )}
                     </div>
                 </div>
+                <AlertModal ref={this.myModal} title="Atenção" onConfirm={() => this.onModalConfirm()} onCancel={() => this.onModalCancel()}>
+                    <p>Você foi alertado!</p>
+                </AlertModal>
             </section>
         )
     }
