@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/header.component'
+// Importando o componente do modal
 import AlertModal from './components/alert-modal/alert-modal.component'
 
 // Criando c component 
@@ -21,10 +22,21 @@ class App extends React.Component {
         // Criando refeência para o header
         this.myHeader = React.createRef();
 
+        // Criando refeência para o modal
         this.myModal = React.createRef();
     }
 
     componentDidMount(){
+    }
+
+    // Função para quando clicar em "Confirmar"
+    onModalConfirm(){
+        console.log("confirmou", this.state)
+    }
+
+    // Função para quando clicar em "Cancelar"
+    onModalCancel(){
+        console.log("cancelou", this.state)
     }
 
     // Função para alterar o estado
@@ -54,19 +66,8 @@ class App extends React.Component {
         }
     }
 
-    // Função para quando clicar em "Confirmar"
-    onModalConfirm(){
-        console.log("confirmou", this.state)
-    }
-
-    // Função para quando clicar em "Cancelar"
-    onModalCancel(){
-        console.log("cancelou", this.state)
-    }
-
     // Função que renderiza o componente
     render() {
-        
         return (
             <section>
                 <Header title="Aula 10" onTitleClicked={() => console.log("Clicou no título que eu ví!")} ref={this.myHeader}>
@@ -102,7 +103,6 @@ class App extends React.Component {
                         {/* Passando children content */}
                         <p>Você foi alertado!</p>
                 </AlertModal>
-
             </section>
         )
     }

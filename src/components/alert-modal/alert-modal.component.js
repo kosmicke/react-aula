@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// Importando o arquivo de estilo do componente
 import './alert-modal.component.css'
 
 class AlertModal extends Component{
