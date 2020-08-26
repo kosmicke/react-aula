@@ -54,14 +54,15 @@ class App extends React.Component {
         }
     }
 
+    // Função para quando clicar em "Confirmar"
     onModalConfirm(){
         console.log("confirmou", this.state)
     }
 
+    // Função para quando clicar em "Cancelar"
     onModalCancel(){
         console.log("cancelou", this.state)
     }
-
 
     // Função que renderiza o componente
     render() {
@@ -91,9 +92,17 @@ class App extends React.Component {
                         )}
                     </div>
                 </div>
-                <AlertModal ref={this.myModal} title="Atenção" onConfirm={() => this.onModalConfirm()} onCancel={() => this.onModalCancel()}>
-                    <p>Você foi alertado!</p>
+
+                {/* Chamando nosso componente e passando as props */}
+                <AlertModal 
+                    ref={this.myModal} 
+                    title="Atenção" 
+                    onConfirm={() => this.onModalConfirm()} 
+                    onCancel={() => this.onModalCancel()}>
+                        {/* Passando children content */}
+                        <p>Você foi alertado!</p>
                 </AlertModal>
+
             </section>
         )
     }
