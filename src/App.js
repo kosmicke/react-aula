@@ -1,11 +1,11 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
-import Header from './components/header/header.component'
 
+import Header from './components/header/header.component'
 import HomePage from './pages/home-page/home-page';
 import ChatsPage from './pages/chats-page/chats-page';
-
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import LoginPage from './pages/login-page/login-page';
 
 // Criando c component 
 class App extends React.Component {
@@ -28,6 +28,7 @@ class App extends React.Component {
         const routes = [
             { route : "/", view : HomePage, exact : true},
             { route : "/chats", view : ChatsPage, exact : false},
+            { route : "/login", view : LoginPage, exact : false},
         ]
 
         return (
@@ -39,7 +40,8 @@ class App extends React.Component {
                 </Header>
                 <Switch>
                     {/* <Route exact path="/" component={HomePage} />
-                    <Route path="/chats" component={ChatsPage} /> */}
+                    <Route path="/chats" component={ChatsPage} />
+                    <Route path="/login" component={LoginPage} /> */}
                     {routes.map((item, index) => (
                         <Route key={index} path={item.route} component={item.view} exact={item.exact}/>
                     ))}
