@@ -13,6 +13,19 @@ class LoginPage extends React.Component {
 
     }
 
+    getError(field){
+
+        if(field == "os"){
+            if(this.state.os == "windows"){
+                return (
+                    <small className="form-text text-danger">Ja ouviu falar de unix?</small>
+                )
+            }
+        }
+
+        return null;
+    }
+
     render() {
 
         const musics = [
@@ -108,9 +121,7 @@ class LoginPage extends React.Component {
                                 <label className="form-check-label" htmlFor={item.value}>{item.label}</label>
                             </div>
                         ))}
-                        {this.state.os == "windows" ? ( 
-                            <small className="form-text text-danger">Ja ouviu falar de unix?</small>
-                        ): null}
+                        {this.getError("os")}
                     </div>
 
                 </div>
