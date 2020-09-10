@@ -1,131 +1,81 @@
 import React from 'react'
+import authService from '../../services/auth.service';
+
+import { Redirect }  from 'react-router-dom'
 
 class LoginPage extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            name: "",
-            music: "rock",
-            subscribe: false,
-            os: "windows"
+            username : "",
+            password : "",
+            redirectTo : null
+        }
+    }
+
+    sendLogin = async (event) => {
+        event.preventDefault();
+        
+        const data = {
+            nickName : this.state.username,
+            password: this.state.password
+        }
+
+        try {
+            let res = await authService.authenticate(data)
+            console.log("res", res.data)
+            authService.setLoggedUser(res.data.data)
+            this.setState({redirectTo : "/chats"})
+        } catch (error) {
+            console.log(error)
+            alert("Erro ao efeturar login.")
         }
 
     }
 
-    getError(field){
-
-        if(field == "os"){
-            if(this.state.os == "windows"){
-                return (
-                    <small className="form-text text-danger">Ja ouviu falar de unix?</small>
-                )
-            }
-        }
-
-        return null;
-    }
 
     render() {
 
-        const musics = [
-            {value : "rock", label: "Rock"},
-            {value : "pop", label: "Pop"},
-            {value : "funk", label: "Funk"},
-        ]
-
-        const oss = [
-            {value : "windows", label: "Windows"},
-            {value : "linux", label: "Linux"},
-            {value : "mac", label: "Mac"},
-        ]
+        if(this.state.redirectTo){
+            return(
+                <Redirect to={this.state.redirectTo}/>
+            )
+        }
 
         return (
-            <div className="container">
-                <h1>I'm login page</h1>
-
-                <div className="row mb-5 mt-5">
-                    <div className="col-6">
-                        <div className="card">
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">
-                                    <h3>Nome</h3>
-                                    <p>{this.state.name}</p>
-                                </li>
-                                <li className="list-group-item">
-                                    <h3>Music</h3>
-                                    <p>{this.state.music}</p>
-                                </li>
-                                <li className="list-group-item">
-                                    <h3>Receber e-mail chato?</h3>
-                                    <p>{this.state.subscribe ? "sim" : "não"}</p>
-                                </li>
-                                <li className="list-group-item">
-                                    <h3>Sistema Operacional</h3>
-                                    <p>{this.state.os}</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col">
-                        <div className="form-group">
-                            <label htmlFor="name">Nome</label>
-                            <input type="text" 
-                                className="form-control" 
-                                id="name" 
-                                value={this.state.name} 
-                                onChange={(e) => this.setState({name : e.target.value})} />
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="form-group">
-                            <label htmlFor="music">Estilo musical</label>
-                            <select className="form-control" 
-                                id="music" 
-                                value={this.state.music} 
-                                onChange={(e) => this.setState({music : e.target.value})}>
-                                    {musics.map(item => (
-                                        <option key={item.value} value={item.value}>{item.label}</option>
-                                    ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="form-check">
-                            <input className="form-check-input" 
-                                type="checkbox" 
-                                id="subscribe" 
-                                checked={this.state.subscribe} 
-                                onChange={e => this.setState({ subscribe : e.target.checked })} />
-                            <label className="form-check-label" htmlFor="subscribe">
-                                Inscrever-se na Newsletter
-                            </label>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        {oss.map(item => (
-                            <div className="form-check" key={item.value}>
-                                <input className="form-check-input"
-                                    type="radio"
-                                    id={item.value}
-                                    value={item.value}
-                                    checked={this.state.os === item.value}
-                                    onChange={e => this.setState({ os: e.target.value })}
-                                />
-                                <label className="form-check-label" htmlFor={item.value}>{item.label}</label>
+            <div className="container d-flex justify-content-center">
+                <div className="card mt-5 w-50">
+                    <div className="card-body">
+                        <form onSubmit={this.sendLogin}>
+                            <div className="form-group">
+                                <label htmlFor="nickName">Usuário</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control"
+                                    id="nickName" 
+                                    name="nickName" 
+                                    placeholder="Usuário" 
+                                    value={this.state.username}
+                                    onChange={e => this.setState({username : e.target.value})}
+                                    />
                             </div>
-                        ))}
-                        {this.getError("os")}
+                            <div className="form-group">
+                                <label htmlFor="password">Senha</label>
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Senha"
+                                    value={this.state.password}
+                                    onChange={e => this.setState({password : e.target.value})}
+                                    />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Entrar</button>
+                        </form>
                     </div>
-
                 </div>
-
             </div>
         )
     }
