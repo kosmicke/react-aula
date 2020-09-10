@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
             let res = await authService.authenticate(data)
             console.log("res", res.data)
             authService.setLoggedUser(res.data.data)
-            this.setState({redirectTo : "/chats"})
+            this.setState({redirectTo : "/"})
         } catch (error) {
             console.log(error)
             alert("Erro ao efeturar login.")
