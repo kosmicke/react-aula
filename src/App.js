@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
 
 import Header from './components/header/header.component'
@@ -35,7 +35,7 @@ class App extends React.Component {
 
     logout(){
         authService.cleanLoggedUser()
-        this.setState({userData : null})
+        window.location.reload()
     }
 
     // Função que renderiza o componente
