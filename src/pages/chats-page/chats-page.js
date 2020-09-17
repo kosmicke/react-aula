@@ -21,6 +21,10 @@ class ChatsPage extends React.Component {
             console.log("Redirecionou", loggedUser)
             this.setState({redirectTo : "/login"})
         }
+
+        if(this.props.match.params.nome){
+            console.log("this.props.match.params.nome", this.props.match.params.nome)
+        }
     }
 
     render() {

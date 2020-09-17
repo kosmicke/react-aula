@@ -41,11 +41,10 @@ class App extends React.Component {
     // Função que renderiza o componente
     render() {
 
-        // const routes = [
-        //     { route : "/", view : HomePage, exact : true},
-        //     { route : "/chats", view : ChatsPage, exact : false},
-        //     { route : "/login", view : LoginPage, exact : false},
-        // ]
+        const routes = [
+            { route : "/", view : HomePage, exact : true},
+            { route : "/chats", view : ChatsPage, exact : false},
+        ]
 
         return (
            <BrowserRouter>
@@ -58,12 +57,10 @@ class App extends React.Component {
                     </button>
                 </Header>
                 <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route path="/chats" component={ChatsPage} />
-                    <Route path="/login" component={props => <LoginPage {...props} onLogin={() => this.loadUser()}/>} />
-                    {/* {routes.map((item, index) => (
+                    {routes.map((item, index) => (
                         <Route key={index} path={item.route} component={item.view} exact={item.exact}/>
-                    ))} */}
+                    ))}
+                    <Route path="/login" component={props => <LoginPage {...props} onLogin={() => this.loadUser()}/>} />
                 </Switch>
            </BrowserRouter>
         )
